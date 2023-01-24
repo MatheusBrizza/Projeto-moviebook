@@ -9,15 +9,19 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.moviebook</groupId>
-	<artifactId>estrutura-inicial-projeto-final-moviebook</artifactId>
+	<artifactId>Projeto-moviebook</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>estrutura-inicial-projeto-final-moviebook</name>
-	<description>estrutura-inicial-projeto-final-moviebook</description>
+	<name>Projeto-moviebook</name>
+	<description>Projeto-moviebook</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>

@@ -4,20 +4,21 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Usuario {
+@Document
+public class Usuario extends Pessoa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @SequenceGenerator(name = "usuario_sequence")
     private Long id;
 
-    @Column(length = 20, nullable = false)
     private String login;
+
+    private String senha;
+
+    private Boolean isAtivo;
 
 }

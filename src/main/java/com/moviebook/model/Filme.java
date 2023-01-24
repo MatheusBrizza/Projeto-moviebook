@@ -4,27 +4,21 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.lang.annotation.Documented;
 import java.util.List;
 
-@Entity
-@Table
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Document
 public class Filme {
 
     @Id
-    @GeneratedValue
     private int id;
 
-    @Column(name = "nome", nullable = false)
     private String nome;
-
-
-    List<Filme>queroAssitir;
-
-    List<Filme>assistidos;
-
 
 }
