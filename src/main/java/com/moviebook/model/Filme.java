@@ -17,7 +17,7 @@ import java.util.List;
 public class Filme {
 
     @Id
-    private int id;
+    private Long id;
 
     private String nome;
 
