@@ -21,4 +21,7 @@ public class Filme {
 
     private String nome;
 
+    private List< Filme> queroAssistir;
+
+    private List< Filme> assisitdos;
 }
