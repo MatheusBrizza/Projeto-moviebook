@@ -10,6 +10,7 @@ public class MovieDTO {
 
     private int id;
     private String title;
+    private String genre;
     private String overview;
     private String status;
 

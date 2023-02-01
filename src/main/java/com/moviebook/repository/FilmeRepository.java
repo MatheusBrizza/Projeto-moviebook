@@ -1,5 +1,6 @@
 package com.moviebook.repository;
 
+import com.moviebook.dto.MovieDTO;
 import com.moviebook.model.Filme;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -7,8 +8,14 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface FilmeRepository extends MongoRepository< Filme, Long> {
 
 
-    Filme findByName(String titulo);
+    Filme findByTitulo(String titulo);
 
-    void deleteByTitle(String titulo);
+    void deleteByTitulo(String titulo);
+
+    MovieDTO buscarPorTitulo(String title);
+
+    MovieDTO buscarPorId(int id);
+
+    MovieDTO buscarPorGenero(String genero);
 }
 

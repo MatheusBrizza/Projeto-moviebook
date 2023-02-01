@@ -1,32 +1,52 @@
 package com.moviebook.service;
 
+import com.moviebook.dto.MovieDTO;
 import com.moviebook.model.Filme;
 import com.moviebook.repository.FilmeRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FilmeService {
     private FilmeRepository filmeRepository;
 
+//    private TMDBIntegrationService tmdbIntegrationService;
+
     public FilmeService (FilmeRepository filmeRepository){
+//        this.tmdbIntegrationService = tmdbIntegrationService;
         this.filmeRepository = filmeRepository;
     }
-    public Filme findById(FilmeRepository filmeRepository, Long id) {
-        return filmeRepository.findById(id).get();
+    public MovieDTO buscarPorId(int id) {
+        return filmeRepository.buscarPorId(id);
     }
 
-    public Filme findByTitle(String titulo, FilmeRepository filmeRepository) {
-        return filmeRepository.findByName(titulo);
+    public MovieDTO buscarPorTitulo(String title) {
+        return filmeRepository.buscarPorTitulo(title);
     }
-    public Filme create(Filme filme){
+    public MovieDTO buscarPorGenero(String genero){
+        return filmeRepository.buscarPorGenero(genero);
+    }
+    public Filme criar(Filme filme){
         return filmeRepository.save(filme);
     }
 
-    public void deleteById(Long id) {
+    public Filme update(Filme filme, String nome) throws Exception {
+        Filme filmeUpdate = this.filmeRepository.findByTitulo(nome);
+        if (filmeUpdate == null) {
+            //throw new BusinessExceptions(HttpStatus.BAD_REQUEST, "Não é possivel atualizar este filme.");
+            throw new Exception("Filme não encontrado");
+        }
+
+        filmeUpdate.setTitle(filme.getTitle());
+
+        return filmeRepository.save(filme);
+    }
+
+    public void deletarPorId(Long id) {
         filmeRepository.deleteById(id);
     }
-    public void deleteByTitle(String titulo, FilmeRepository filmeRepository) {
-        filmeRepository.deleteByTitle(titulo);
+    public void deletarPorTitulo(String titulo, FilmeRepository filmeRepository) {
+        filmeRepository.deleteByTitulo(titulo);
     }
 //    public boolean existsInTheWatchList(Filme filme) {
 //        return false;

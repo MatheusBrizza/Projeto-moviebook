@@ -19,9 +19,11 @@ public class Filme {
     @Id
     private Long id;
 
-    private String nome;
+    private String refTmdb;
 
-    private List< Filme> queroAssistir;
+    private String title;
+    private String genero;
+    private String descricao;
+    private String status;
 
-    private List< Filme> assisitdos;
 }

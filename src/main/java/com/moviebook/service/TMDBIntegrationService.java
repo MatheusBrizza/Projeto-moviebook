@@ -21,8 +21,16 @@ public class TMDBIntegrationService {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    public MovieDTO findById(int id) {
+    public MovieDTO buscarPorId(int id) {
         String url = generateURLIntegration(id);
+        return this.restTemplate.getForObject(url, MovieDTO.class);
+    }
+    public MovieDTO buscarPorTitulo(String nome) {
+        String url = generateURLIntegration(Integer.parseInt(nome));
+        return this.restTemplate.getForObject(url, MovieDTO.class);
+    }
+    public MovieDTO buscarPorGenero(String genero) {
+        String url = generateURLIntegration(Integer.parseInt(genero));
         return this.restTemplate.getForObject(url, MovieDTO.class);
     }
 
