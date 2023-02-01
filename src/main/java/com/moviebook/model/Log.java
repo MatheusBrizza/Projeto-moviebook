@@ -1,24 +1,24 @@
 package com.moviebook.model;
 
-import jakarta.persistence.*;
+import com.moviebook.model.enums.Operacao;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.lang.annotation.Documented;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Document
-public class Filme {
+public class Log {
 
     @Id
     private Long id;
-    private String nome;
-    private String descricao;
-
+    private LocalDateTime data;
+    private Operacao operacao;
+    private Usuario usuario;
+    private String nomeFilme;
 }

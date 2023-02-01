@@ -14,11 +14,8 @@ public class Usuario extends Pessoa {
 
     @Id
     private Long id;
-
     private String login;
-
     private String senha;
-
     private Boolean isAtivo;
 
 }
