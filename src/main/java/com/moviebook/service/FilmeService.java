@@ -1,9 +1,11 @@
 package com.moviebook.service;
 
-import com.moviebook.dto.MovieDTO;
+import com.moviebook.dto.FilmeDTO;
 import com.moviebook.model.Filme;
 import com.moviebook.repository.FilmeRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class FilmeService {
@@ -16,22 +18,22 @@ public class FilmeService {
 //        this.tmdbIntegrationService = tmdbIntegrationService;
         this.filmeRepository = filmeRepository;
     }
-    public MovieDTO buscarPorId(Long id) {
-        return filmeRepository.buscarPorId(id);
+    public Filme buscarPorId(Long id) {
+        return filmeRepository.findById(id).get();
     }
 
-    public MovieDTO buscarPorTitulo(String title) {
-        return filmeRepository.buscarPorTitulo(title);
+    public Filme buscarPorNome(String nome) {
+        return filmeRepository.findByNome(nome);
     }
-    public MovieDTO buscarPorGenero(String genero){
-        return filmeRepository.buscarPorGenero(genero);
+    public Filme buscarPorGenero(String genero){
+        return filmeRepository.findByGenero(genero);
     }
     public Filme criar(Filme filme){
         return filmeRepository.save(filme);
     }
 
     public Filme update(Filme filme, String nome) throws Exception {
-        Filme filmeUpdate = this.filmeRepository.findByTitulo(nome);
+        Filme filmeUpdate = this.filmeRepository.findByNome(nome);
         if (filmeUpdate == null) {
             //throw new BusinessExceptions(HttpStatus.BAD_REQUEST, "Não é possivel atualizar este filme.");
             throw new Exception("Filme não encontrado");
@@ -42,11 +44,15 @@ public class FilmeService {
         return filmeRepository.save(filme);
     }
 
+    public List<Filme> findAll() {
+        return filmeRepository.findAll();
+    }
+
     public void deletarPorId(Long id) {
         filmeRepository.deleteById(id);
     }
     public void deletarPorTitulo(String titulo, FilmeRepository filmeRepository) {
-        filmeRepository.deleteByTitulo(titulo);
+        filmeRepository.deleteByNome(titulo);
     }
 //    public boolean existsInTheWatchList(Filme filme) {
 //        return false;

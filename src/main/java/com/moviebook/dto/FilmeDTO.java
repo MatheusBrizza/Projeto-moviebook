@@ -6,11 +6,11 @@ import lombok.Data;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class MovieDTO {
+public class FilmeDTO {
 
     private int id;
-    private String title;
-    private String overview;
+    private String nome;
+    private String descricao;
     private String status;
 
     @JsonProperty("vote_average")

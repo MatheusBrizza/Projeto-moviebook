@@ -20,5 +20,5 @@ public class Log {
     private LocalDateTime data;
     private Operacao operacao;
     private Usuario usuario;
-    private String nomeFilme;
+    private Filme filme;
 }

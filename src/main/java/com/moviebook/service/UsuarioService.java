@@ -24,12 +24,12 @@ public class UsuarioService {
         return usuarioRepository.findById(idUsuario).get();
     }
 
-    public Usuario findFilmeById(Long idFilme) {
-        return usuarioRepository.findById(idFilme).get();
+    public Filme findFilmeById(Long idFilme) {
+        return filmeRepository.findById(idFilme).get();
     }
 
     public Usuario findByName(String nome, UsuarioRepository usuarioRepository) {
-        return usuarioRepository.findByName(nome);
+        return usuarioRepository.findByNome(nome);
     }
     public Usuario create(Usuario usuario){
         return usuarioRepository.save(usuario);
@@ -40,7 +40,7 @@ public class UsuarioService {
     }
 
     public void deleteByName(String nome, UsuarioRepository usuarioRepository) {
-        usuarioRepository.deleteByName(nome);
+        usuarioRepository.deleteByNome(nome);
     }
 
     public Usuario addInWatchList(Long idUsuario, Long idFilme ){
@@ -49,6 +49,11 @@ public class UsuarioService {
         List<Filme> iWantToWatch= usuarioBuscado.getIWantToWatch();
         iWantToWatch.add(filmeBuscado);
         return usuarioRepository.save(usuarioBuscado);
+    }
+
+    public void removerFilmeDaWatchListByUsuario(Long idUsuario, Long idFilme) {
+        // Algo tipo: logService.criarLog(idUsuario, idFilme)
+        // TODO Implementar código para remover filme idFile da Watch List do Usuário idUsuario
     }
 
 

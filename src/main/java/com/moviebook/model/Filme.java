@@ -19,6 +19,7 @@ public class Filme {
     @Id
     private Long id;
     private String nome;
+    private String genero;
     private String descricao;
 
 }

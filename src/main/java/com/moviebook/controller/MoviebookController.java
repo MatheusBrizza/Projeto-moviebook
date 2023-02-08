@@ -1,6 +1,6 @@
 package com.moviebook.controller;
 
-import com.moviebook.dto.MovieDTO;
+import com.moviebook.dto.FilmeDTO;
 import com.moviebook.service.TMDBIntegrationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ public class MoviebookController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MovieDTO> findById(@PathVariable("id") int id) {
+    public ResponseEntity<FilmeDTO> findById(@PathVariable("id") int id) {
         return ResponseEntity.ok(this.tmdbIntegrationService.findById(id));
     }
 

@@ -4,5 +4,5 @@ public enum Operacao {
     DELETAR,
     ADICIONAR,
     BUSCAR,
-    EDITAR;
+    EDITAR
 }

@@ -1,6 +1,8 @@
 package com.moviebook.controller;
 
 import com.moviebook.model.Usuario;
+import com.moviebook.repository.FilmeRepository;
+import com.moviebook.service.FilmeService;
 import com.moviebook.service.UsuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,25 +43,42 @@ public class UsuarioController {
 */
 
     UsuarioService usuarioService;
-    public  UsuarioController(UsuarioService usuarioService){
+
+    FilmeService filmeService;
+
+    public  UsuarioController(UsuarioService usuarioService, FilmeService filmeService){
         this.usuarioService = usuarioService;
+        this.filmeService = filmeService;
     }
+
     @GetMapping("/{id}")
-    private ResponseEntity<Usuario> findById(@PathVariable("id") Integer id) {
-        Usuario responseUsuario = usuarioService.findUserById(id);
+    public ResponseEntity<Usuario> findById(@PathVariable("id") Long id) {
+        Usuario responseUsuario = usuarioService.findUsuarioById(id);
         return ResponseEntity.status(HttpStatus.OK).body(responseUsuario);
     }
+
     @PostMapping
-    private ResponseEntity<Usuario> create(@RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) {
         Usuario responseUsusario = usuarioService.create(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUsusario);
     }
 
     @PostMapping("/{idUsuario}/{idFilme}")
-    private ResponseEntity<Usuario> adicionarNaListaDeAssistidos(@PathVariable("idUsuario") Integer idUsuario, @PathVariable("idFilme") Integer idFilme) {
-        Usuario responseUsuario = usuarioService.addInWatchedList(idUsuario, idFilme);
+    public ResponseEntity<Usuario> adicionarNaListaDeAssistidos(@PathVariable("idUsuario") Long idUsuario,
+                                                                @PathVariable("idFilme") Long idFilme) {
+        Usuario responseUsuario = usuarioService.addInWatchList(idUsuario, idFilme);
         return ResponseEntity.status(HttpStatus.OK).body(responseUsuario);
-
     }
+
+    @DeleteMapping("/{idUsuario}/filmes/{idFilme}/watch-list")
+    public ResponseEntity<Void> deletarFilmeDaWatchListByUsuario(@PathVariable("idUsuario") Long idUsuario,
+                                                                 @PathVariable("idFilme") Long idFilme) {
+        System.out.println(idUsuario);
+        System.out.println(idFilme);
+
+        usuarioService.removerFilmeDaWatchListByUsuario(idUsuario, idFilme);
+        return null;
+    }
+
 
 }
