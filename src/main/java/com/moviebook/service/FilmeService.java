@@ -51,7 +51,7 @@ public class FilmeService {
     public void deletarPorId(Long id) {
         filmeRepository.deleteById(id);
     }
-    public void deletarPorTitulo(String titulo, FilmeRepository filmeRepository) {
+    public void deletarPorTitulo(String titulo) {
         filmeRepository.deleteByNome(titulo);
     }
 //    public boolean existsInTheWatchList(Filme filme) {

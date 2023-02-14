@@ -2,6 +2,8 @@ server:
   servlet:
     context-path: /moviebook
   port: 8081
+  error:
+    include-message: always
 
 spring:
   data:
