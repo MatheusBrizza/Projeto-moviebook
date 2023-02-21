@@ -8,7 +8,6 @@ server:
 spring:
   data:
     mongodb:
-      host: moviebook-database-mongo-container
       uri: mongodb://localhost/moviebook-database-mongo-container
   profiles:
     include: 'integration'

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -18,6 +20,7 @@ public class Usuario extends Pessoa {
     private String login;
     private String senha;
     private Boolean isAtivo;
-    private List<Filme> iWantToWatch;
-    private List<Filme> assisted;
+    private List<Filme> queroAssistir = new ArrayList<>();
+    private List<Filme> assistidos = new ArrayList<>();
+
 }

@@ -1,6 +1,6 @@
 package com.moviebook.service;
 
-import com.moviebook.dto.FilmeDTO;
+import com.moviebook.dto.FilmeTmdbDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
@@ -21,12 +21,12 @@ public class TMDBIntegrationService {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    public FilmeDTO findById(int id) {
+    public FilmeTmdbDTO encontrarPorId(long id) {
         String url = generateURLIntegration(id);
-        return this.restTemplate.getForObject(url, FilmeDTO.class);
+        return this.restTemplate.getForObject(url, FilmeTmdbDTO.class);
     }
 
-    private String generateURLIntegration(int id) {
+    private String generateURLIntegration(long id) {
         return this.uri + "/movie/" + id + "?api_key=" + this.apiKey ;
     }
 

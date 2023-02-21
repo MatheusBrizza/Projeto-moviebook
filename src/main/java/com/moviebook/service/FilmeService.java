@@ -1,6 +1,6 @@
 package com.moviebook.service;
 
-import com.moviebook.dto.FilmeDTO;
+import com.moviebook.dto.FilmeRequestDTO;
 import com.moviebook.model.Filme;
 import com.moviebook.repository.FilmeRepository;
 import org.springframework.stereotype.Service;
@@ -12,10 +12,10 @@ public class FilmeService {
 
     private FilmeRepository filmeRepository;
 
-//    private TMDBIntegrationService tmdbIntegrationService;
+    private TMDBIntegrationService tmdbIntegrationService;
 
     public FilmeService (FilmeRepository filmeRepository){
-//        this.tmdbIntegrationService = tmdbIntegrationService;
+        this.tmdbIntegrationService = tmdbIntegrationService;
         this.filmeRepository = filmeRepository;
     }
     public Filme buscarPorId(Long id) {
@@ -25,11 +25,18 @@ public class FilmeService {
     public Filme buscarPorNome(String nome) {
         return filmeRepository.findByNome(nome);
     }
+
     public Filme buscarPorGenero(String genero){
         return filmeRepository.findByGenero(genero);
     }
-    public Filme criar(Filme filme){
-        return filmeRepository.save(filme);
+
+    public Filme criar(FilmeRequestDTO filmeRequestDTO) {
+        Filme filmeParaSalvar = Filme.builder()
+                .id(filmeRequestDTO.getId())
+                .nome(filmeRequestDTO.getNome())
+                .build();
+
+        return filmeRepository.save(filmeParaSalvar);
     }
 
     public Filme update(Filme filme, String nome) throws Exception {

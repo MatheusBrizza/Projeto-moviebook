@@ -6,9 +6,8 @@ import lombok.Data;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class FilmeDTO {
+public class FilmeTmdbDTO {
 
-    private int id;
     private String nome;
     private String descricao;
     private String status;
