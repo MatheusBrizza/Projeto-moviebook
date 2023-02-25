@@ -1,7 +1,7 @@
 package com.moviebook.controller;
 
+import com.moviebook.dto.FilmeTmdbDTO;
 import com.moviebook.dto.UsuarioRequestDTO;
-import com.moviebook.model.Filme;
 import com.moviebook.model.Usuario;
 import com.moviebook.service.FilmeService;
 import com.moviebook.service.UsuarioService;
@@ -25,9 +25,15 @@ public class UsuarioController {
     }
 
     @GetMapping("/{idUsuario}/filmes")
-    public ResponseEntity<List<Filme>> encontrarFilmesAssistidosUsuarioPorId(@PathVariable("idUsuario") Long idUsuario) {
-        List<Filme> listaDeFilmesAssistidos = usuarioService.encontrarFilmesAssistidosPorUsuarioId(idUsuario);
+    public ResponseEntity<List<FilmeTmdbDTO>> encontrarFilmesAssistidosUsuarioPorId(@PathVariable("idUsuario") Long idUsuario) {
+        List<FilmeTmdbDTO> listaDeFilmesAssistidos = usuarioService.encontrarFilmesAssistidosPorUsuarioId(idUsuario);
         return ResponseEntity.status(HttpStatus.OK).body(listaDeFilmesAssistidos);
+    }
+
+    @GetMapping("/{idUsuario}/filmes/quero-assistir")
+    public ResponseEntity<List<FilmeTmdbDTO>> encontrarFilmesListaQueroAssitirPorId(@PathVariable("idUsuario") Long idUsuario) {
+        List<FilmeTmdbDTO> listaQueroAssistir = usuarioService.encontrarFilmesQueroAssistirPorUsuarioId(idUsuario);
+        return ResponseEntity.status(HttpStatus.OK).body(listaQueroAssistir);
     }
 
     @PostMapping
@@ -53,34 +59,5 @@ public class UsuarioController {
         usuarioService.removerFilmeListaQueroAssistirPorUsuario(idUsuario, idFilme);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(null);
     }
-
-
-/*
-    private UsuarioService service;
-
-    public UsuarioController( UsuarioService service) {
-        this.service = service;
-    }
-
-    @GetMapping("{/id}")
-    @ResponseStatus(HttpStatus.FOUND)
-    public ResponseEntity<Usuario> findById(@PathVariable Long id) {
-        Optional<Usuario> usuario = service.findById(id);
-        return ResponseEntity.ok(id);
-    }
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Usuario> createUsuario(@ResponseBody Usuario usuario) {
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
-
-    @DeleteMapping("{/id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
-        service.deleteById(id);
-        return ResponseEntity.noContent().build();
-    }
-
-*/
 
 }
