@@ -5,7 +5,6 @@ import com.moviebook.model.Filme;
 import com.moviebook.repository.FilmeRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class FilmeService {

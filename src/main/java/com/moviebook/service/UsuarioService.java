@@ -121,7 +121,7 @@ public class UsuarioService {
     }
 */
 
-    public void validarUsuarioNaoExistentePorId(Long idUsuario) throws UsuarioNaoExistenteException {
+    private void validarUsuarioNaoExistentePorId(Long idUsuario) throws UsuarioNaoExistenteException {
         Optional<Usuario> usuarioExists = usuarioRepository.findById(idUsuario);
 
         if (usuarioExists.isEmpty()) {
@@ -131,7 +131,7 @@ public class UsuarioService {
             );
         }
     }
-    public void validarUsuarioExistentePorId(Long idUsuario) throws UsuarioExistenteException{
+    private void validarUsuarioExistentePorId(Long idUsuario) throws UsuarioExistenteException{
         Optional<Usuario> usuarioExists = usuarioRepository.findById(idUsuario);
 
         if (!usuarioExists.isEmpty()) {
