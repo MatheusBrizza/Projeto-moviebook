@@ -1,7 +1,5 @@
 package com.moviebook.controller;
 
-import com.moviebook.controller.exception.FilmeNaoEncontradoException;
-import com.moviebook.controller.exception.UsuarioNaoEncontradoException;
 import com.moviebook.dto.FilmeTmdbDTO;
 import com.moviebook.dto.UsuarioRequestDTO;
 import com.moviebook.model.Usuario;
@@ -10,6 +8,9 @@ import com.moviebook.service.UsuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class UsuarioController {
 
     FilmeService filmeService;
 
-    public UsuarioController(UsuarioService usuarioService, FilmeService filmeService){
+    public UsuarioController(UsuarioService usuarioService, FilmeService filmeService) {
         this.usuarioService = usuarioService;
         this.filmeService = filmeService;
     }
@@ -49,8 +50,9 @@ public class UsuarioController {
         Usuario responseUsuario = usuarioService.adicionarFilmeListaQueroAssistir(usuarioRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUsuario);
     }
+
     @PostMapping("/filmes/assistidos")
-    public ResponseEntity<Usuario> filmesAssistidos(@RequestBody UsuarioRequestDTO usuarioRequestDTO){
+    public ResponseEntity<Usuario> filmesAssistidos(@RequestBody UsuarioRequestDTO usuarioRequestDTO) {
         Usuario responseUsuario = usuarioService.adicionarFilmeListaAssistidos(usuarioRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUsuario);
 
@@ -63,11 +65,8 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(null);
     }
 
-    public ResponseEntity<String> handleFilmeNaoEncontradoException(FilmeNaoEncontradoException ex){
-        return ResponseEntity.badRequest().body(ex.getMessage());
-    }
-    @ExceptionHandler(UsuarioNaoEncontradoException.class)
-    public ResponseEntity<String> handleUsuarioNaoEncontradoException(UsuarioNaoEncontradoException ex){
-        return ResponseEntity.badRequest().body(ex.getMessage());
-    }
+
+
+
+
 }

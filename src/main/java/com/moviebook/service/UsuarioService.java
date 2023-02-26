@@ -7,6 +7,7 @@ import com.moviebook.model.Usuario;
 import com.moviebook.model.enums.Operacao;
 import com.moviebook.repository.UsuarioRepository;
 import com.moviebook.service.exception.FilmeJaAdicionadoException;
+import com.moviebook.service.exception.FilmeNaoEncontradoException;
 import com.moviebook.service.exception.UsuarioExistenteException;
 import com.moviebook.service.exception.UsuarioNaoExistenteException;
 import org.springframework.http.HttpStatus;
@@ -66,7 +67,7 @@ public class UsuarioService {
         FilmeTmdbDTO filmeBuscado = tmdbIntegrationService.encontrarPorId(usuarioRequestDTO.getIdFilme());
         if (listaFilmes.contains(filmeBuscado)) {
             throw new FilmeJaAdicionadoException(HttpStatus.BAD_REQUEST,
-                    String.format("O filme %s já está na lista", filmeBuscado.getTitle()));
+                    String.format("O filme %s já está nesta lista", filmeBuscado.getTitle()));
         }
         listaFilmes.add(filmeBuscado);
         usuario.setQueroAssistir(listaFilmes);
@@ -80,7 +81,7 @@ public class UsuarioService {
         FilmeTmdbDTO filmeBuscado = tmdbIntegrationService.encontrarPorId(usuarioRequestDTO.getIdFilme());
         if (listaFilmes.contains(filmeBuscado)) {
             throw new FilmeJaAdicionadoException(HttpStatus.BAD_REQUEST,
-                    String.format("O filme %s já está na lista", filmeBuscado.getTitle()));
+                    String.format("O filme %s já está nesta lista", filmeBuscado.getTitle()));
         }
         listaFilmes.add(filmeBuscado);
         usuario.setAssistidos(listaFilmes);
@@ -88,14 +89,18 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public void removerFilmeListaQueroAssistirPorUsuario(Long idUsuario, Long idFilme) {
+    public void removerFilmeListaQueroAssistirPorUsuario(Long idUsuario, Long idFilme) throws FilmeNaoEncontradoException {
         Usuario usuario = encontrarUsuarioPorId(idUsuario);
         List<FilmeTmdbDTO> listaFilmesQueroAssistir = usuario.getQueroAssistir();
-        FilmeTmdbDTO filme = tmdbIntegrationService.encontrarPorId(idFilme);
-        listaFilmesQueroAssistir.remove(filme);
+        FilmeTmdbDTO filmeBuscado = tmdbIntegrationService.encontrarPorId(idFilme);
+        if (listaFilmesQueroAssistir.contains(filmeBuscado)) {
+            throw new FilmeNaoEncontradoException(HttpStatus.BAD_REQUEST,
+                    String.format("O filme %s não está nesta lista", filmeBuscado.getTitle()));
+        }
+        listaFilmesQueroAssistir.remove(filmeBuscado);
         usuario.setQueroAssistir(listaFilmesQueroAssistir);
         usuarioRepository.save(usuario);
-        logOperacao(usuario, filme);
+        logOperacao(usuario, filmeBuscado);
     }
 
     public void logOperacao(Usuario usuario, FilmeTmdbDTO filme) {
@@ -109,17 +114,6 @@ public class UsuarioService {
         logService.criarLog(logOperacao);
     }
 
-/*    public void validarFilmeLista(UsuarioRequestDTO usuarioRequestDTO) throws FilmeJaAdicionadoException {
-        Usuario usuario = encontrarUsuarioPorId(usuarioRequestDTO.getIdUsuario());
-        List<FilmeTmdbDTO> listaFilmes = usuario.getAssistidos();
-        FilmeTmdbDTO filmeBuscado = tmdbIntegrationService.encontrarPorId(usuarioRequestDTO.getIdFilme());
-        if (listaFilmes.contains(filmeBuscado)) {
-                throw new FilmeJaAdicionadoException(HttpStatus.BAD_REQUEST,
-                        String.format("O filme %s já adicionado na lista", filmeBuscado.getTitle()));
-        }
-        listaFilmes.add(filmeBuscado);
-    }
-*/
 
     private void validarUsuarioNaoExistentePorId(Long idUsuario) throws UsuarioNaoExistenteException {
         Optional<Usuario> usuarioExists = usuarioRepository.findById(idUsuario);

@@ -24,16 +24,4 @@ public class FilmeService {
         return filmeRepository.save(filmeParaSalvar);
     }
 
-    public Filme update(Filme filme, String nome) throws Exception {
-        Filme filmeUpdate = this.filmeRepository.findByNome(nome);
-        if (filmeUpdate == null) {
-            //throw new BusinessExceptions(HttpStatus.BAD_REQUEST, "Não é possivel atualizar este filme.");
-            throw new Exception("Filme não encontrado");
-        }
-
-        filmeUpdate.setNome(filme.getNome());
-
-        return filmeRepository.save(filme);
-    }
-
 }

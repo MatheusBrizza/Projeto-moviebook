@@ -12,7 +12,6 @@ public class TMDBIntegrationService {
 
     private RestTemplate restTemplate;
 
-
     @Value("${tmdb-external-api}")
     private String uri;
 
@@ -24,7 +23,6 @@ public class TMDBIntegrationService {
     }
 
     public FilmeTmdbDTO encontrarPorId(long id) {
-        validarFilmeNaoExistentePorId(id);
         // TODO: validação existencia do filme aqui
         String url = generateURLIntegration(id);
         return this.restTemplate.getForObject(url, FilmeTmdbDTO.class);
@@ -33,16 +31,5 @@ public class TMDBIntegrationService {
     private String generateURLIntegration(long id) {
         return this.uri + "/movie/" + id + "?api_key=" + this.apiKey;
     }
-
-    public void validarFilmeNaoExistentePorId(Long idFilme) {
-//        Optional<Filme> filmeExists = filmeRepository.findById(idFilme);
-
- /*       if (filmeExists.isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    String.format("Não existe um filme com id %s, é preciso criar antes de completar esta ação.", idFilme)
-            );
-        }
-*/    }
 
 }
