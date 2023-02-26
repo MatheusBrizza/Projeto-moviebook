@@ -1,5 +1,7 @@
 package com.moviebook.controller;
 
+import com.moviebook.controller.exception.FilmeNaoEncontradoException;
+import com.moviebook.controller.exception.UsuarioNaoEncontradoException;
 import com.moviebook.dto.FilmeTmdbDTO;
 import com.moviebook.dto.UsuarioRequestDTO;
 import com.moviebook.model.Usuario;
@@ -51,6 +53,7 @@ public class UsuarioController {
     public ResponseEntity<Usuario> filmesAssistidos(@RequestBody UsuarioRequestDTO usuarioRequestDTO){
         Usuario responseUsuario = usuarioService.adicionarFilmeListaAssistidos(usuarioRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUsuario);
+
     }
 
     @DeleteMapping("/{idUsuario}/filmes/{idFilme}/quero-assistir")
@@ -60,4 +63,11 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(null);
     }
 
+    public ResponseEntity<String> handleFilmeNaoEncontradoException(FilmeNaoEncontradoException ex){
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+    @ExceptionHandler(UsuarioNaoEncontradoException.class)
+    public ResponseEntity<String> handleUsuarioNaoEncontradoException(UsuarioNaoEncontradoException ex){
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
 }

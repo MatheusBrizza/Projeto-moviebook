@@ -12,22 +12,8 @@ public class FilmeService {
 
     private FilmeRepository filmeRepository;
 
-    private TMDBIntegrationService tmdbIntegrationService;
-
     public FilmeService (FilmeRepository filmeRepository){
-        this.tmdbIntegrationService = tmdbIntegrationService;
         this.filmeRepository = filmeRepository;
-    }
-    public Filme buscarPorId(Long id) {
-        return filmeRepository.findById(id).get();
-    }
-
-    public Filme buscarPorNome(String nome) {
-        return filmeRepository.findByNome(nome);
-    }
-
-    public Filme buscarPorGenero(String genero){
-        return filmeRepository.findByGenero(genero);
     }
 
     public Filme criar(FilmeRequestDTO filmeRequestDTO) {
@@ -50,19 +36,5 @@ public class FilmeService {
 
         return filmeRepository.save(filme);
     }
-
-    public List<Filme> findAll() {
-        return filmeRepository.findAll();
-    }
-
-    public void deletarPorId(Long id) {
-        filmeRepository.deleteById(id);
-    }
-    public void deletarPorTitulo(String titulo) {
-        filmeRepository.deleteByNome(titulo);
-    }
-//    public boolean existsInTheWatchList(Filme filme) {
-//        return false;
-//    }
 
 }
