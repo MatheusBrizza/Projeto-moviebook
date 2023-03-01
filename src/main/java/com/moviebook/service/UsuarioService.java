@@ -93,7 +93,7 @@ public class UsuarioService {
         Usuario usuario = encontrarUsuarioPorId(idUsuario);
         List<FilmeTmdbDTO> listaFilmesQueroAssistir = usuario.getQueroAssistir();
         FilmeTmdbDTO filmeBuscado = tmdbIntegrationService.encontrarPorId(idFilme);
-        if (listaFilmesQueroAssistir.contains(filmeBuscado)) {
+        if (!listaFilmesQueroAssistir.contains(filmeBuscado)) {
             throw new FilmeNaoEncontradoException(HttpStatus.BAD_REQUEST,
                     String.format("O filme %s não está nesta lista", filmeBuscado.getTitle()));
         }

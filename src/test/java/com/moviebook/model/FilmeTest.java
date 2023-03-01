@@ -15,22 +15,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FilmeTest {
     @Test
-    public void  testFilmeTemId(){
+    public void testFilmeTemId(){
         Filme filme = new Filme(1L, "O poderoso Chefão", "Drama", "A historia da familia Corleone, uma das mais famosas familas da mafia americana.");
         assertEquals(1, filme.getId());
     }
+
     @Test
-    public void  testFilmeTemNome(){
+    public void testFilmeTemNome(){
         Filme filme = new Filme(1L, "O poderoso Chefão", "Drama", "A historia da familia Corleone, uma das mais famosas familas da mafia americana." );
         assertEquals("O poderoso Chefão", filme.getNome());
     }
     @Test
-    public void  testFilmeTemGenero(){
+    public void testFilmeTemGenero(){
         Filme filme = new Filme(1L, "O poderoso Chefão", "Drama", "A historia da familia Corleone, uma das mais famosas familas da mafia americana." );
         assertEquals("Drama", filme.getGenero());
     }
     @Test
-    public void  testFilmeTemDescricao(){
+    public void testFilmeTemDescricao(){
         Filme filme = new Filme(2L, "O poderoso Chefão", "Drama", "A historia da familia Corleone, uma das mais famosas familas da mafia americana." );
         assertEquals("A historia da familia Corleone, uma das mais famosas familas da mafia americana.", filme.getDescricao());
     }
